@@ -18,6 +18,17 @@ public class VehicleManager {
             System.out.println(v.toString());
     }
 
+    public Vehicle findRegNumber(String reg) {
+        for (Vehicle v : vehicleList)
+            if(reg.equalsIgnoreCase(v.getRegistration()))
+            {
+                return v;
+            }
+        return null;
+
+    }
+
+
     public void loadVehiclesFromFile(String fileName) {
         try {
             Scanner sc = new Scanner(new File(fileName));
