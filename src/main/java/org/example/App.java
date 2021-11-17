@@ -1,6 +1,6 @@
 package org.example;
 
-/**
+/** Shakira Lynch
  * This Vehicle Bookings Management Systems manages the booking of Vehicles
  * by Passengers.
  *
