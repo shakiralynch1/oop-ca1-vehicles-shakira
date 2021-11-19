@@ -24,6 +24,29 @@ public class PassengerStore {
             System.out.println(p.toString());
         }
     }
+    //not allowed duplicates
+    public void addPassenger(String name, String email, String phone,
+                                  double latitude, double longitude)
+    {
+        //construct a new passenger object
+        Passenger passenger= new Passenger(name,email,phone,latitude,longitude);
+
+        boolean found=false;
+        for(Passenger p: passengerList) {
+            if (p.equals(passenger)) {
+                found = true;
+                break;
+            }
+        }
+            if(found == false){
+                passengerList.add(passenger);
+
+        }
+
+        passengerList.add(passenger);
+
+
+    }
 
     /**
      * Read Passenger records from a text file and create and add Passenger
@@ -56,5 +79,7 @@ public class PassengerStore {
     }
 
     // TODO - see functional spec for details of code to add
+
+
 
 } // end class

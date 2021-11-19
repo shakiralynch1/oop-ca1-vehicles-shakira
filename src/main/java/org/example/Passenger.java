@@ -87,6 +87,20 @@ public class Passenger {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return name.equals(passenger.name) &&
+                email.equals(passenger.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email);
+    }
+
+    @Override
     public String toString() {
         return this.getClass().getSimpleName() + "{"
                 + "id=" + id + ", name=" + name + ", email="
