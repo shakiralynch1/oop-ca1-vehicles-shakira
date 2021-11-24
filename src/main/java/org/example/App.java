@@ -35,9 +35,9 @@ public class App
         System.out.println("Finding vehicle with reg 151D987105");
         System.out.println(vehicleManager.findRegNumber("151D987105"));
 
-        System.out.println("Adding a passenger");
-        //Passenger p1=  new Passenger("Mitch", "Brown", "07483393449", 8.8493,6.7940));
-        passengerStore.addPassenger("Mitch", "Brown", "07483393449", 8.8493,6.7940);
+
+
+
 
 
         System.out.println("Program exiting... Goodbye");

@@ -30,6 +30,8 @@ public class VehicleManager {
 
 
     public void loadVehiclesFromFile(String fileName) {
+        double loadSpace=0;
+        int numSeats=0;
         try {
             Scanner sc = new Scanner(new File(fileName));
 //           Delimiter: set the delimiter to be a comma character ","
@@ -50,7 +52,15 @@ public class VehicleManager {
                 int mileage = sc.nextInt();
                 double latitude = sc.nextDouble();  // Depot GPS location
                 double longitude = sc.nextDouble();
-                int loadSpace = sc.nextInt();
+                if (type.equalsIgnoreCase("Van") ||
+                        type.equalsIgnoreCase("Truck")){
+                    loadSpace = sc.nextDouble();
+                }
+                else{
+                     numSeats= sc.nextInt();
+                }
+
+
 
                 if (type.equalsIgnoreCase("Van") ||
                         type.equalsIgnoreCase("Truck")) {
@@ -61,6 +71,16 @@ public class VehicleManager {
                             mileage, latitude, longitude,
                             loadSpace));
                 }
+                else if(type.equalsIgnoreCase("Car") ||
+                        type.equalsIgnoreCase("4X4")) {
+                    // construct a Van object and add it to the passenger list
+                    vehicleList.add(new Van(id, type, make, model, milesPerKwH,
+                            registration, costPerMile,
+                            year, month, day,
+                            mileage, latitude, longitude,
+                            numSeats));
+                }
+
             }
             sc.close();
 
@@ -68,6 +88,7 @@ public class VehicleManager {
             System.out.println("Exception thrown. " + e);
         }
     }
+
 
     //TODO add more functionality as per spec.
 
