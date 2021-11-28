@@ -36,10 +36,8 @@ public class App
         System.out.println(vehicleManager.findRegNumber("151D987105"));
 
 
-
-
-
-
         System.out.println("Program exiting... Goodbye");
     }
+
+
 }

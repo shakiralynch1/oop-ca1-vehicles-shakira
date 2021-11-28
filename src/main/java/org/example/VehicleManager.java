@@ -17,11 +17,17 @@ public class VehicleManager {
         for (Vehicle v : vehicleList)
             System.out.println(v.toString());
     }
+    public Vehicle findAllVehicles(){
+        for (Vehicle v: vehicleList)
+           if(v!= null) {
+               return v;
+           }
+        return null;
+    }
 
     public Vehicle findRegNumber(String reg) {
         for (Vehicle v : vehicleList)
-            if(reg.equalsIgnoreCase(v.getRegistration()))
-            {
+            if (reg.equalsIgnoreCase(v.getRegistration())) {
                 return v;
             }
         return null;
@@ -30,8 +36,8 @@ public class VehicleManager {
 
 
     public void loadVehiclesFromFile(String fileName) {
-        double loadSpace=0;
-        int numSeats=0;
+        double loadSpace = 0;
+        int numSeats = 0;
         try {
             Scanner sc = new Scanner(new File(fileName));
 //           Delimiter: set the delimiter to be a comma character ","
@@ -53,13 +59,11 @@ public class VehicleManager {
                 double latitude = sc.nextDouble();  // Depot GPS location
                 double longitude = sc.nextDouble();
                 if (type.equalsIgnoreCase("Van") ||
-                        type.equalsIgnoreCase("Truck")){
+                        type.equalsIgnoreCase("Truck")) {
                     loadSpace = sc.nextDouble();
+                } else {
+                    numSeats = sc.nextInt();
                 }
-                else{
-                     numSeats= sc.nextInt();
-                }
-
 
 
                 if (type.equalsIgnoreCase("Van") ||
@@ -70,8 +74,7 @@ public class VehicleManager {
                             year, month, day,
                             mileage, latitude, longitude,
                             loadSpace));
-                }
-                else if(type.equalsIgnoreCase("Car") ||
+                } else if (type.equalsIgnoreCase("Car") ||
                         type.equalsIgnoreCase("4X4")) {
                     // construct a Van object and add it to the passenger list
                     vehicleList.add(new Van(id, type, make, model, milesPerKwH,
@@ -88,6 +91,27 @@ public class VehicleManager {
             System.out.println("Exception thrown. " + e);
         }
     }
+
+    public Vehicle findVehicleByRegistration(String registration) {
+        for (Vehicle v : vehicleList) {
+            if (v.getRegistration().equalsIgnoreCase(registration)) {
+                return v;
+            }
+        }
+        return null;
+    }
+    public ArrayList<Vehicle> findVehicleByUserType(String type){
+
+        ArrayList<Vehicle> vehicles= new ArrayList<>();
+        for(Vehicle v: vehicleList){
+            if(v.getType().equalsIgnoreCase(type)){
+                vehicles.add(v);
+            }
+            return vehicles;
+        }
+        return null;
+    }
+
 
 
     //TODO add more functionality as per spec.
