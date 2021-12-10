@@ -28,4 +28,7 @@ public class AppTest
         assertEquals(-6.4444, van.getDepotGPSLocation().getLongitude(),0.00005);
         assertEquals(240,van.getLoadSpace(),0.05);
     }
+    public void createBooking(){
+
+    }
 }

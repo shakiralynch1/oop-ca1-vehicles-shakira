@@ -24,6 +24,14 @@ public class VehicleManager {
            }
         return null;
     }
+    public Vehicle findVehicleById(int id){
+        for(Vehicle v: vehicleList) {
+            if(v.getId()==(id)){
+                return v;
+            }
+        }
+        return null;
+    }
 
     public Vehicle findRegNumber(String reg) {
         for (Vehicle v : vehicleList)

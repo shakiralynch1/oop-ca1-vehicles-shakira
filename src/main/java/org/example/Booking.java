@@ -1,7 +1,7 @@
 package org.example;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Date;
 
 //d
 class Booking {
@@ -9,26 +9,32 @@ class Booking {
     private int passengerId;
     private int vehicleId;
     private LocalDateTime bookingDateTime;
+    private PassengerStore passengerStore;
+    private VehicleManager vehicleManager;
     private LocationGPS startLocation;
+
     private LocationGPS endLocation;
+    private IdGenerator idGenerator = IdGenerator.getInstance("next-id-store.txt");
     private double cost;  //Calculated at booking time
 
 
-    public Booking(int bookingId, int passengerId,
-                   LocalDateTime bookingDateTime, LocationGPS startLocation,
-                   LocationGPS endLocation) {
-        this.bookingId = bookingId;
+    public Booking(int passengerId, int vehicleId,
+                   int year, int month, int day, int hour, int minute,
+                   double startLongitude, double startLatitude,
+                   double endLongitude, double endLatitude, double cost) {
+        this.bookingId = idGenerator.getNextId();
         this.passengerId = passengerId;
         this.vehicleId = vehicleId;
-        this.bookingDateTime = bookingDateTime;
-        this.startLocation = startLocation;
-        this.endLocation = endLocation;
-        this.cost = cost;
+        this.bookingDateTime = LocalDateTime.of(year, month, day, hour, minute);
+        this.startLocation = new LocationGPS(startLatitude, startLongitude);
+        this.endLocation = new LocationGPS(endLatitude, endLongitude);
+
     }
 
     public int getPassengerId() {
         return passengerId;
     }
+
 
     public void setPassengerId(int passengerId) {
         this.passengerId = passengerId;
@@ -71,54 +77,21 @@ class Booking {
         return bookingId;
     }
 
-    public void setBookingId(int bookingId) {
-        this.bookingId = bookingId;
+
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingId=" + bookingId +
+                ", passengerId=" + passengerId +
+                ", vehicleId=" + vehicleId +
+                ", bookingDateTime=" + bookingDateTime +
+                ", startLocation=" + startLocation +
+                ", endLocation=" + endLocation +
+                ", cost=" + cost +
+                '}';
     }
-
-
-
-
-
-            public static double distance(double lat1,
-                                          double lat2, double lon1,
-                                          double lon2)
-            {
-
-                // The math module contains a function
-                // named toRadians which converts from
-                // degrees to radians.
-                lon1 = Math.toRadians(lon1);
-                lon2 = Math.toRadians(lon2);
-                lat1 = Math.toRadians(lat1);
-                lat2 = Math.toRadians(lat2);
-
-                // Haversine formula
-                double dlon = lon2 - lon1;
-                double dlat = lat2 - lat1;
-                double a = Math.pow(Math.sin(dlat / 2), 2)
-                        + Math.cos(lat1) * Math.cos(lat2)
-                        * Math.pow(Math.sin(dlon / 2),2);
-
-                double c = 2 * Math.asin(Math.sqrt(a));
-
-                // Radius of earth in kilometers. Use 3956
-                // for miles
-                double r = 6371;
-
-                // calculate the result
-                return(c * r);
-            }
-
-
-
-        }
-
-
-
-
-
-
-
+}
 
 
     //TODO - see specification=edit, delete and output

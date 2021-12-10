@@ -117,6 +117,15 @@ public class PassengerStore {
             }
         }
     }
+    public Passenger findPassengerById(int id){
+        for(Passenger p: passengerList) {
+            if(p.getId()==(id)){
+                return p;
+            }
+        }
+        return null;
+
+    }
     public Passenger findPassengerByName(String name){
 
         for(Passenger p: passengerList) {
@@ -211,16 +220,21 @@ public class PassengerStore {
         }
 
     }
-    public void deletePassengersByLocation(LocationGPS location) {
-        for (int i = 0; i < passengerList.size(); i++)
-        {
-            if (passengerList.get(i).getLocation()==(location))
-            {
-                passengerList.remove(i);
-            }
-        }
+    public void deletePassengersByName(String name) {
 
-    }
+            int pos=-1;
+            for (int i = 0; i < passengerList.size(); i++)
+            {
+                if (passengerList.get(i).getName().equalsIgnoreCase(name))
+                {
+                    pos=i;
+                }
+            }
+            if(pos!=-1){
+                passengerList.remove(pos);
+            }
+
+        }
 
 
 

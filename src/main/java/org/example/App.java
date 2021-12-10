@@ -1,5 +1,7 @@
 package org.example;
 
+
+
 /** Shakira Lynch-oop ca1 n
  * This Vehicle Bookings Management Systems manages the booking of Vehicles
  * by Passengers.
@@ -35,8 +37,26 @@ public class App
         System.out.println("Finding vehicle with reg 151D987105");
         System.out.println(vehicleManager.findRegNumber("151D987105"));
 
+        BookingManager bookingManager= new BookingManager(passengerStore,vehicleManager,"bookings.txt");
+        System.out.println("Making a booking");
+       bookingManager.createBooking(101,108,2020,2,23,3,48,78.86765,67.59594,85.593,4.9904);
+        bookingManager.createBooking(102,107,2028,7,4,7,19,78.86765,67.59594,4.4443,56.435);
+        bookingManager.createBooking(103,108,2026,12,11,23,9,78.86765,67.59594,98.493,9.594);
+       System.out.println("Displaying bookings...");
+        bookingManager.displayBookings();
+        //yyyy-MM-dd-HH-mm-ss
+
+        bookingManager.sortBookingBy(new DateComparator());
+
+        System.out.println("Printing out bookings in the future");
+        bookingManager.displayBookingsCurrentToFuture();
+
+        System.out.println("Average of lengths in bookings");
+        System.out.println(bookingManager.averageLengthOfBookings());
+
 
         System.out.println("Program exiting... Goodbye");
+
     }
 
 

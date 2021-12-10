@@ -86,12 +86,12 @@ public class MenuStarter {
                         System.out.println("Exit Menu option chosen");
                         break;
                     default:
-                        System.out.print("Invalid option - please enter number in range");
+                        System.out.println("Invalid option - please enter number in range");
                         break;
                 }
 
             } catch (InputMismatchException | NumberFormatException e) {
-                System.out.print("Invalid option - please enter number in range");
+                System.out.println("Invalid option - please enter number in range");
             }
         } while (option != EXIT);
 
@@ -105,11 +105,17 @@ public class MenuStarter {
         final String MENU_ITEMS = "\n*** PASSENGER MENU ***\n"
                 + "1. Display passenger options\n"
                 + "2. Find passenger options\n"
-                + "3. EXIT"
-                + "Enter Option [1,5]";
+                + "3. Edit passenger options\n"
+                + "4. Delete passenger options\n"
+                + "5. Add a passenger\n"
+                + "6. EXIT\n"
+                + "Enter Option [1,6]";
         final int DISPLAY = 1;
         final int FIND = 2;
-        final int EXIT = 3;
+        final int EDIT=3;
+        final int DELETE=4;
+        final int ADD=5;
+        final int EXIT = 6;
 
         Scanner keyboard = new Scanner(System.in);
         int option = 0;
@@ -124,6 +130,12 @@ public class MenuStarter {
                         break;
                     case FIND:
                         findPassengerMenu();
+                    case EDIT:
+                        editPassengerMenu();
+                    case DELETE:
+                        deletePassengerMenu();
+                    case ADD:
+                        addPassengerMenu();
                     case EXIT:
                         System.out.println("Exit Menu option chosen");
                         break;
@@ -199,12 +211,12 @@ public class MenuStarter {
                         System.out.println("Exit Menu option chosen");
                         break;
                     default:
-                        System.out.print("Invalid option - please enter number in range");
+                        System.out.println("Invalid option - please enter number in range");
                         break;
                 }
 
             } catch (InputMismatchException | NumberFormatException e) {
-                System.out.print("Invalid option - please enter number in range");
+                System.out.println("Invalid option - please enter number in range");
             }
         } while (option != EXIT);
 
@@ -277,16 +289,195 @@ public class MenuStarter {
                         System.out.println("Exit Menu option chosen");
                         break;
                     default:
-                        System.out.print("Invalid option - please enter number in range");
+                        System.out.println("Invalid option - please enter number in range");
                         break;
                 }
 
             } catch (InputMismatchException | NumberFormatException e) {
-                System.out.print("Invalid option - please enter number in range");
+                System.out.println("Invalid option - please enter number in range");
             }
         } while (option != EXIT);
 
     }
+    private void editPassengerMenu(){
+        final String MENU_ITEMS = "\n*** EDIT PASSENGER MENU ***\n"
+                + "1. Edit passenger name\n"
+                + "2. Edit passenger phone\n"
+                + "3. Edit passenger location\n"
+                + "4. EXIT\n"
+                + "Enter Option [1,4]";
+        final int EDIT_NAME = 1;
+        final int EDIT_PHONE = 2;
+        final int EDIT_LOCATION = 3;
+        final int EXIT =4;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+                switch (option) {
+                    case EDIT_NAME:
+                        System.out.println("Edit Passenger Name");
+                        System.out.println("Please enter the email for the passenger name you wish to change : ");
+                        String email = keyboard.nextLine();
+                        if(passengerStore.findPassengerByEmail(email)==null){
+                            System.out.println("Passenger does not exist");
+                        }
+                        else {
+                            System.out.println("Enter the name you wish to change the current name to: ");
+                            String name= keyboard.nextLine();
+                            passengerStore.editPassengerName(email, name);
+                            System.out.println("Name changed!");
+                        }
+                        break;
+                    case EDIT_PHONE:
+                        System.out.println("Edit Passenger Number");
+                        System.out.println("Please enter the email for the passenger name you wish to change : ");
+                        String email1 = keyboard.nextLine();
+                        if(passengerStore.findPassengerByEmail(email1)==null){
+                            System.out.println("Passenger does not exist");
+                        }
+                        else {
+                            System.out.println("Enter the phone you wish to change the current phone to: ");
+                            String phone= keyboard.nextLine();
+                            passengerStore.editPassengerPhone(email1, phone);
+                            System.out.println("Phone changed!");
+                        }
+                        break;
+                    case EDIT_LOCATION:
+                        System.out.println("Edit passenger location");
+                        System.out.println("Please enter the passenger email for the passengers locations you wish to edit : ");
+                        String email3 = keyboard.nextLine();
+                        if(passengerStore.findPassengerByEmail(email3)==null){
+                            System.out.println("Passenger does not exist");
+                        }
+                        else {
+                            System.out.println("Please enter the location you wish to have below");
+                            System.out.println("Enter the  latitude: ");
+                            double endLat = keyboard.nextDouble();
+                            System.out.println("Enter the  longitude: ");
+                            double endLong = keyboard.nextDouble();
+                            passengerStore.editPassengerLocation(email3, endLong, endLat);
+                        }
+                        break;
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.println("Invalid option - please enter number in range");
+                        break;
+                }
+
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Invalid option - please enter number in range");
+            }
+        } while (option != EXIT);
+
+    }
+private void deletePassengerMenu(){
+    final String MENU_ITEMS = "\n*** DELETE PASSENGER MENU ***\n"
+            + "1. Delete all passengers\n"
+            + "2. Delete passenger by location\n"
+            + "3. EXIT\n"
+            + "Enter Option [1,3]";
+    final int DELETE_ALL = 1;
+    final int DELETE_NAME    = 2;
+    final int EXIT =3;
+
+    Scanner keyboard = new Scanner(System.in);
+    int option = 0;
+    do {
+        System.out.println("\n" + MENU_ITEMS);
+        try {
+            String usersInput = keyboard.nextLine();
+            option = Integer.parseInt(usersInput);
+            switch (option) {
+                case DELETE_ALL:
+                    System.out.println("Deleting all passengers...");
+                    System.out.println("Are you sure you want to cancel all passengers??" +
+                            "Enter 'Yes' or 'No' ");
+                    String message= keyboard.nextLine();
+                    if(message.equalsIgnoreCase("Yes")) {
+                        passengerStore.deleteAllPassengers();
+                    }
+                    else {
+                        System.out.println("No problem, wise choice!");
+                    }
+                    break;
+                case DELETE_NAME:
+                    System.out.println("Delete passenger by passenger name");
+                    System.out.println("Please enter passenger name for the passenger you wish to delete: ");
+                    String name= keyboard.nextLine();
+                    if(passengerStore.findPassengerByName(name)==null){
+                        System.out.println("Passenger does not exist");
+                    }
+                    System.out.println("Deleting the booking...");
+                    passengerStore.deletePassengersByName(name);
+                    break;
+                case EXIT:
+                    System.out.println("Exit Menu option chosen");
+                    break;
+                default:
+                    System.out.println("Invalid option - please enter number in range");
+                    break;
+            }
+
+        } catch (InputMismatchException | NumberFormatException e) {
+            System.out.println("Invalid option - please enter number in range");
+        }
+    } while (option != EXIT);
+}
+private void addPassengerMenu(){
+        final String MENU_ITEMS = "\n*** ADD BOOKING MENU ***\n"
+                + "1. Add a Passenger\n"
+                + "2. EXIT\n"
+                + "Enter Option [1]";
+        final int ADD = 1;
+        final int EXIT =2;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+                switch (option) {
+                    case ADD:
+                        System.out.println("Add a passenger!");
+                        System.out.println("Please enter all the details below to add a passenger.");
+                        System.out.println("Enter passenger name: ");
+                        String name= keyboard.nextLine();
+                        System.out.println("Enter passenger email: ");
+                        String email = keyboard.nextLine();
+                        System.out.println("Enter passenger phone: ");
+                        String phone = keyboard.nextLine();
+                        System.out.println("Enter Location... ");
+                        System.out.println("Enter longitude: ");
+                        double longitude = keyboard.nextDouble();
+                        System.out.println("Enter latitude: ");
+                        double latitude = keyboard.nextDouble();
+                        passengerStore.addPassenger(name,email,phone,longitude,latitude);
+                        System.out.println("Passenger made...");
+                        break;
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.println("Invalid option - please enter number in range");
+                        break;
+                }
+
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Invalid option - please enter number in range");
+            }
+        } while (option != EXIT);
+
+    }
+
 
     private void vehicleMenu() throws IOException {
         final String MENU_ITEMS = "\n*** VEHICLE MENU ***\n"
@@ -294,7 +485,7 @@ public class MenuStarter {
                 + "2. Find all vehicles\n"
                 + "3. Find vehicle by registration\n"
                 + "4. Find vehicles by type\n"
-                + "5. Exit back to Main Menu"
+                + "5. Exit back to Main Menu\n"
                 + "Enter Option [1,5]";
         final int ALL_V = 1;
         final int FIND_V = 2;
@@ -338,17 +529,395 @@ public class MenuStarter {
                     System.out.println("Exit Menu option chosen");
                     break;
                     default:
-                        System.out.print("Invalid option - please enter number in range");
+                        System.out.println("Invalid option - please enter number in range");
                         break;
                 }
 
             } catch (InputMismatchException | NumberFormatException e) {
-                System.out.print("Invalid option - please enter number in range");
+                System.out.println("Invalid option - please enter number in range");
             }
         } while (option != EXIT);
     }
     private void bookingMenu(){
-        System.out.println("Still working on it");
+        final String MENU_ITEMS = "\n*** BOOKING MENU ***\n"
+                + "1. Display booking options\n"
+                + "2. Find booking options\n"
+                + "3. Edit booking options\n"
+                + "4. Delete booking options\n"
+                + "5. Add a booking\n"
+                + "6. EXIT\n"
+                + "Enter Option [1,6]";
+        final int DISPLAY = 1;
+        final int FIND = 2;
+        final int EDIT = 3;
+        final int DELETE =4;
+        final int ADD =5;
+        final int EXIT = 6;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+                switch (option) {
+                    case DISPLAY:
+                        displayBookingMenu();
+                        break;
+                    case FIND:
+                        findBookingMenu();
+                        break;
+                    case EDIT:
+                        editBookingMenu();
+                        break;
+                    case DELETE:
+                        deleteBookingMenu();
+                        break;
+                    case ADD:
+                        addBookingMenu();
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.println("Invalid option - please enter number in range");
+                        break;
+                }
+
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Invalid option - please enter number in range");
+            }
+        } while (option != EXIT);
+    }
+
+
+
+
+    private void displayBookingMenu()  {
+            final String MENU_ITEMS = "\n*** DISPLAY PASSENGER MENU ***\n"
+                    + "1. Show all Bookings\n"
+                    + "2. Display Bookings in the future\n"
+                    + "3. Display booking by Booking ID\n"
+                    + "4. Display booking by Passenger ID\n"
+                    + "5. Display booking by Vehicle ID\n"
+                    + "6. Display current to future\n"
+                    + "7. EXIT\n"
+                    + "Enter Option [1,7]";
+
+            final int SHOW_ALL = 1;
+            final int DISPLAY_BY_FUTURE = 2;
+            final int DISPLAY_BY_BOOK_ID = 3;
+            final int DISPLAY_BY_PASS_ID = 4;
+            final int DISPLAY_BY_VEHC_ID = 5;
+            final int DISPLAY_FUTURE=6;
+            final int EXIT = 7;
+
+            Scanner keyboard = new Scanner(System.in);
+            int option = 0;
+            do {
+                System.out.println("\n" + MENU_ITEMS);
+                try {
+                    String usersInput = keyboard.nextLine();
+                    option = Integer.parseInt(usersInput);
+                    switch (option) {
+                        case SHOW_ALL:
+                            System.out.println("Display ALL Bookings");
+                            bookingManager.displayBookings();
+                            break;
+                        case DISPLAY_BY_FUTURE:
+                            System.out.println("Display Bookings for the future");
+                            bookingManager.displayBookingsCurrentToFuture();
+
+                            break;
+                        case DISPLAY_BY_BOOK_ID:
+                            System.out.println("Display booking by booking ID");
+                            System.out.println("Enter booking ID: ");
+                            int bookingId = keyboard.nextInt();
+                            bookingManager.displayBookingByBookingId(bookingId);
+                            break;
+                        case DISPLAY_BY_PASS_ID:
+                            System.out.println("Display booking by passenger ID");
+                            System.out.println("Enter passenger ID: ");
+                            int passengerId = keyboard.nextInt();
+                            bookingManager.displayBookingByPassenegerId(passengerId);
+                            break;
+                        case DISPLAY_BY_VEHC_ID:
+                            System.out.println("Display booking by vehicle ID");
+                            System.out.println("Enter vehicle ID: ");
+                            int vehicleId = keyboard.nextInt();
+                            bookingManager.displayBookingByVehicleId(vehicleId);
+                            break;
+                        case DISPLAY_FUTURE:
+                            System.out.println("Display bookings from current to future");
+                            bookingManager.sortBookingBy(new DateComparator());
+                            bookingManager.displayBookingsCurrentToFuture();
+                            break;
+                        case EXIT:
+                            System.out.println("Exit Menu option chosen");
+                            break;
+                        default:
+                            System.out.println("Invalid option - please enter number in range");
+                            break;
+                    }
+
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Invalid option - please enter number in range");
+                }
+            } while (option != EXIT);
+
+        }
+
+    private void findBookingMenu() {
+            final String MENU_ITEMS = "\n*** FIND BOOKING MENU ***\n"
+                    + "1. Find all vehicles\n"
+                    + "2. Find vehicle by registration\n"
+                    + "3. EXIT\n"
+                    + "Enter Option [1,3]";
+            final int FIND_PASS_ID = 1;
+            final int FIND_VEH_ID = 2;
+            final int EXIT =3;
+
+            Scanner keyboard = new Scanner(System.in);
+            int option = 0;
+            do {
+                System.out.println("\n" + MENU_ITEMS);
+                try {
+                    String usersInput = keyboard.nextLine();
+                    option = Integer.parseInt(usersInput);
+                    switch (option) {
+                        case FIND_PASS_ID:
+                            System.out.println("Find booking by passenger ID");
+                            System.out.println("Please enter a passenger ID: ");
+                            int passId = keyboard.nextInt();
+                            if(bookingManager.findBookingByPassengerId(passId)==null){
+                                System.out.println("Passenger does not exist");
+                            }
+                            break;
+                        case FIND_VEH_ID:
+                            System.out.println("Find booking by vehicle ID");
+                            System.out.println("Please enter a vehicle ID: ");
+                            int vehId = keyboard.nextInt();
+                            if(bookingManager.findBookingByVehicleId(vehId)==null){
+                                System.out.println("Vehicle does not exist");
+                            }
+                        break;
+                        case EXIT:
+                            System.out.println("Exit Menu option chosen");
+                            break;
+                        default:
+                            System.out.println("Invalid option - please enter number in range");
+                            break;
+                    }
+
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Invalid option - please enter number in range");
+                }
+            } while (option != EXIT);
+        }
+
+    private void editBookingMenu() {
+        final String MENU_ITEMS = "\n*** EDIT BOOKING MENU ***\n"
+                + "1. Edit booking date time\n"
+                + "2. Edit booking start location\n"
+                + "3. Edit booking end location\n"
+                + "4. EXIT\n"
+                + "Enter Option [1,4]";
+        final int EDIT_DATE = 1;
+        final int EDIT_START = 2;
+        final int EDIT_END = 3;
+        final int EXIT =4;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+                switch (option) {
+                    case EDIT_DATE:
+                        System.out.println("Edit bookings date time");
+                        System.out.println("Please enter the booking ID for the booking date time you wish to edit : ");
+                        int bookId = keyboard.nextInt();
+                        if(bookingManager.findBookingByBookingId(bookId)==null){
+                            System.out.println("Booking does not exist");
+                        }
+                        else {
+                            System.out.println("Please enter the date time you wish to have below");
+                            System.out.println("Enter year: ");
+                            int year = keyboard.nextInt();
+                            System.out.println("Enter month: ");
+                            int month = keyboard.nextInt();
+                            System.out.println("Enter day: ");
+                            int day = keyboard.nextInt();
+                            System.out.println("Enter hour: ");
+                            int hour = keyboard.nextInt();
+                            System.out.println("Enter minute: ");
+                            int minute = keyboard.nextInt();
+                            bookingManager.editBookingByDateTime(bookId, year, month, day, hour, minute);
+                        }
+                        break;
+                    case EDIT_START:
+                        System.out.println("Edit booking start location");
+                        System.out.println("Please enter the booking ID for the booking start location you wish to edit : ");
+                        int bookId1 = keyboard.nextInt();
+                        if(bookingManager.findBookingByBookingId(bookId1)==null){
+                            System.out.println("Booking does not exist");
+                        }
+                        else {
+                            System.out.println("Please enter the start location you wish to have below");
+                            System.out.println("Enter  the start latitude: ");
+                            double startLat = keyboard.nextDouble();
+                            System.out.println("Enter the start longitude: ");
+                            double startLong = keyboard.nextDouble();
+                            bookingManager.editBookingStartLocation(bookId1, startLat, startLong);
+                        }
+                        break;
+                    case EDIT_END:
+                        System.out.println("Edit booking end location");
+                        System.out.println("Please enter the booking ID for the booking end location you wish to edit : ");
+                        int bookId3 = keyboard.nextInt();
+                        if(bookingManager.findBookingByBookingId(bookId3)==null){
+                            System.out.println("Booking does not exist");
+                        }
+                        else {
+                            System.out.println("Please enter the end location you wish to have below");
+                            System.out.println("Enter the end latitude: ");
+                            double endLat = keyboard.nextDouble();
+                            System.out.println("Enter the end location: ");
+                            double endLong = keyboard.nextDouble();
+                            bookingManager.editBookingStartLocation(bookId3, endLat, endLong);
+                        }
+                        break;
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.println("Invalid option - please enter number in range");
+                        break;
+                }
+
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Invalid option - please enter number in range");
+            }
+        } while (option != EXIT);
+
+    }
+    private void deleteBookingMenu(){
+        final String MENU_ITEMS = "\n*** DELETE BOOKING MENU ***\n"
+                + "1. Delete all bookings\n"
+                + "2. Delete booking by bookingID\n"
+                + "3. EXIT\n"
+                + "Enter Option [1,3]";
+        final int DELETE_ALL = 1;
+        final int DELETE_ID = 2;
+        final int EXIT =3;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+                switch (option) {
+                    case DELETE_ALL:
+                        System.out.println("Deleting all bookings...");
+                        System.out.println("Are you sure you want to cancel all bookings??" +
+                                "Enter 'Yes' or 'No' ");
+                        String message= keyboard.nextLine();
+                        if(message.equalsIgnoreCase("Yes")) {
+                            bookingManager.deleteAllBookings();
+                        }
+                        else {
+                            System.out.println("No problem, wise choice!");
+                        }
+                        break;
+                    case DELETE_ID:
+                        System.out.println("Delete booking by bookingID");
+                        System.out.println("Please enter bookingID for the booking you wish to delete: ");
+                        int bookId= keyboard.nextInt();
+                        if(bookingManager.findBookingByBookingId(bookId)==null){
+                            System.out.println("Booking does not exist");
+                        }
+                        System.out.println("Deleting the booking...");
+                        bookingManager.deleteBookingByBookingId(bookId);
+                        break;
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.println("Invalid option - please enter number in range");
+                        break;
+                }
+
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Invalid option - please enter number in range");
+            }
+        } while (option != EXIT);
+
+
+    }
+    private void addBookingMenu(){
+        final String MENU_ITEMS = "\n*** ADD BOOKING MENU ***\n"
+                + "1. Add a booking\n"
+                + "2. EXIT\n"
+                + "Enter Option [1,2]";
+        final int ADD = 1;
+        final int EXIT =2;
+
+        Scanner keyboard = new Scanner(System.in);
+        int option = 0;
+        do {
+            System.out.println("\n" + MENU_ITEMS);
+            try {
+                String usersInput = keyboard.nextLine();
+                option = Integer.parseInt(usersInput);
+                switch (option) {
+                    case ADD:
+                        System.out.println("Create a booking!");
+                        System.out.println("Please enter all the details below to make a booking.");
+                        System.out.println("Enter the IDs...");
+                        System.out.println("Enter passenger ID: ");
+                        int passId= keyboard.nextInt();
+                        System.out.println("Enter Vehicle ID: ");
+                        int vehId = keyboard.nextInt();
+                        System.out.println("Enter date details...");
+                        System.out.println("Enter year: ");
+                        int year = keyboard.nextInt();
+                        System.out.println("Enter month: ");
+                        int month = keyboard.nextInt();
+                        System.out.println("Enter day: ");
+                        int day = keyboard.nextInt();
+                        System.out.println("Enter hour: ");
+                        int hour = keyboard.nextInt();
+                        System.out.println("Enter minute: ");
+                        int minute = keyboard.nextInt();
+                        System.out.println("Enter location details...");
+                        System.out.println("Enter  the start latitude: ");
+                        double startLat = keyboard.nextDouble();
+                        System.out.println("Enter the start longitude: ");
+                        double startLong = keyboard.nextDouble();
+                        System.out.println("Enter the end latitude: ");
+                        double endLat = keyboard.nextDouble();
+                        System.out.println("Enter the end location: ");
+                        double endLong = keyboard.nextDouble();
+                        bookingManager.createBooking(passId,vehId,year,month,day,hour,minute,startLong,startLat,endLong,endLat);
+
+                        break;
+                    case EXIT:
+                        System.out.println("Exit Menu option chosen");
+                        break;
+                    default:
+                        System.out.println("Invalid option - please enter number in range");
+                        break;
+                }
+
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Invalid option - please enter number in range");
+            }
+        } while (option != EXIT);
+
     }
 
 }
